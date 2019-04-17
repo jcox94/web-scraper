@@ -7,6 +7,7 @@
     (Jsoup/connect "http://books.toscrape.com")))
 
 (defn get-titles
+  "Recieves page and pulls out html with title information"
   []
   (-> page
       (.select "article")
@@ -14,6 +15,7 @@
       .html))
 
 (defn parse-titles
+  "Parses out titles received from get-titles"
   [html]
   (let [unparsed-titles
         (re-seq #"title.*" html)]
@@ -24,6 +26,7 @@
       unparsed-titles)))
 
 (defn get-cost
+  "Recieves page and pulls out text with cost information"
   []
   (-> page
       (.select "article")
@@ -31,12 +34,14 @@
       (.text)))
 
 (defn parse-cost
+  "Parses out costs received from get-cost"
   [data]
   (let [costs
         (re-seq #"\d+.\d{2}" data)]
     (map bigdec costs)))
 
 (defn get-ratings
+  "Recieves page and pulls out html with rating information"
   []
   (let [html
         (-> page
@@ -45,6 +50,7 @@
     (filter #(.hasClass % "star-rating") html)))
 
 (defn parse-ratings
+  "Parses out ratings received from get-ratings"
   [data]
   (map
     #(cond
@@ -63,6 +69,8 @@
    :cost cost})
 
 (defn map-book-data
+  "Puts together the titles, cost, and ratings for each book into
+  the book-info map, and puts them all into a list"
   []
   (let [titles
         (parse-titles
