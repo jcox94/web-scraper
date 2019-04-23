@@ -5,4 +5,6 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.jsoup/jsoup "1.11.3"]]
-  :repl-options {:init-ns web-scraper.core})
+  :repl-options {:init-ns web-scraper.core}
+  :main web-scraper.core
+  :aot [web-scraper.core])
