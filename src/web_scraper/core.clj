@@ -103,7 +103,7 @@
 
 (defn print-books
   [books]
-  (doall
+  (dorun
     (map
       #(println
          (str (:title %) "\n\t cost: $" (:cost %) "\n\t rating: " (:rating %)))
